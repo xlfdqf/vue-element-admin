@@ -15,7 +15,7 @@ const roles = [
     key: 'editor',
     name: 'editor',
     description: 'Normal Editor. Can see all pages except permission page',
-    routes: routes.filter(i => i.path !== '/permission')// just a mock
+    routes: routes.filter(i => i.path !== '/permission')// just a mock：可以看到除权限页以外的所有页面（这里设置是否选中的权限）
   },
   {
     key: 'visitor',

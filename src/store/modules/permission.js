@@ -1,4 +1,5 @@
 import { asyncRoutes, constantRoutes } from '@/router'
+// import { asyncRoutes } from '../../../mock/role/routes'
 
 /**
  * Use meta.role to determine if the current user has permission

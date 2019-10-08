@@ -52,8 +52,8 @@
         </el-form-item>
       </el-form>
       <div style="text-align:right;">
-        <el-button type="danger" @click="dialogVisible=false">Cancel</el-button>
-        <el-button type="primary" @click="confirmRole">Confirm</el-button>
+        <el-button type="danger" @click="dialogVisible=false">取消</el-button>
+        <el-button type="primary" @click="confirmRole">确定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -105,12 +105,14 @@ export default {
   methods: {
     async getRoutes() {
       const res = await getRoutes();
+      console.log("所有路由：", res);
       this.serviceRoutes = res.data;
       this.routes = this.generateRoutes(res.data);
     },
     async getRoles() {
       const res = await getRoles();
       this.rolesList = res.data;
+      console.log("表格数据--权限路由：", res.data);
     },
 
     //重新调整路由结构，使其看起来与边栏相同
@@ -145,6 +147,7 @@ export default {
       }
       return res;
     },
+    //获取角色权限路由，默认选中
     generateArr(routes) {
       let data = [];
       routes.forEach(route => {
@@ -156,6 +159,7 @@ export default {
           }
         }
       });
+
       return data;
     },
     handleAddRole() {
@@ -173,15 +177,16 @@ export default {
       this.role = deepClone(scope.row);
       this.$nextTick(() => {
         const routes = this.generateRoutes(this.role.routes);
-        this.$refs.tree.setCheckedNodes(this.generateArr(routes));
+        // console.log("默认选中路由：", this.generateArr(routes));
+        this.$refs.tree.setCheckedNodes(this.generateArr(routes)); //设置目前勾选的节点
         //节点的已设置检查状态不影响其父节点和子节点
         this.checkStrictly = false;
       });
     },
     handleDelete({ $index, row }) {
-      this.$confirm("Confirm to remove the role?", "Warning", {
-        confirmButtonText: "Confirm",
-        cancelButtonText: "Cancel",
+      this.$confirm("确定删除角色?", "警告", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
         type: "warning"
       })
         .then(async () => {
