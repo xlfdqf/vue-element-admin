@@ -53,7 +53,7 @@ export const asyncRoutes = [
     redirect: '/permission/index',
     alwaysShow: true,
     meta: {
-      title: '权限页',
+      title: '权限页22',
       icon: 'lock',
       roles: ['admin', 'editor']
     },
@@ -63,7 +63,7 @@ export const asyncRoutes = [
         component: 'views/permission/page',
         name: 'PagePermission',
         meta: {
-          title: '页面权限',
+          title: '页面权限22',
           roles: ['admin']
         }
       },

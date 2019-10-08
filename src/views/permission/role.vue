@@ -113,12 +113,12 @@ export default {
       this.rolesList = res.data;
     },
 
-    // Reshape the routes structure so that it looks the same as the sidebar
+    //重新调整路由结构，使其看起来与边栏相同
     generateRoutes(routes, basePath = "/") {
       const res = [];
 
       for (let route of routes) {
-        // skip some route
+        // 跳过一些路由
         if (route.hidden) {
           continue;
         }
@@ -137,7 +137,7 @@ export default {
           title: route.meta && route.meta.title
         };
 
-        // recursive child routes
+        // 递归的子路由
         if (route.children) {
           data.children = this.generateRoutes(route.children, data.path);
         }
@@ -174,7 +174,7 @@ export default {
       this.$nextTick(() => {
         const routes = this.generateRoutes(this.role.routes);
         this.$refs.tree.setCheckedNodes(this.generateArr(routes));
-        // set checked state of a node not affects its father and child nodes
+        //节点的已设置检查状态不影响其父节点和子节点
         this.checkStrictly = false;
       });
     },
@@ -202,7 +202,7 @@ export default {
       for (const route of routes) {
         const routePath = path.resolve(basePath, route.path);
 
-        // recursive child routes
+        // 递归的子路由
         if (route.children) {
           route.children = this.generateTree(
             route.children,
@@ -257,19 +257,19 @@ export default {
         type: "success"
       });
     },
-    // reference: src/view/layout/components/Sidebar/SidebarItem.vue
+    // 参考: src/view/layout/components/Sidebar/SidebarItem.vue
     onlyOneShowingChild(children = [], parent) {
       let onlyOneChild = null;
       const showingChildren = children.filter(item => !item.hidden);
 
-      // When there is only one child route, the child route is displayed by default
+      // 当只有一个子路由时，默认显示子路由
       if (showingChildren.length === 1) {
         onlyOneChild = showingChildren[0];
         onlyOneChild.path = path.resolve(parent.path, onlyOneChild.path);
         return onlyOneChild;
       }
 
-      // Show parent if there are no child route to display
+      // 如果没有要显示的子路由，则显示父路由
       if (showingChildren.length === 0) {
         onlyOneChild = { ...parent, path: "", noShowingChildren: true };
         return onlyOneChild;

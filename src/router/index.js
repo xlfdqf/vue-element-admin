@@ -3,10 +3,8 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-/* Layout */
 import Layout from '@/layout'
 
-/* Router Modules */
 import componentsRouter from './modules/components'
 import nestedRouter from './modules/nested'
 
@@ -51,7 +49,7 @@ export const constantRoutes = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
-        meta: { title: '首页', icon: 'dashboard', affix: true }
+        meta: { title: '首页11', icon: 'dashboard', affix: true }
       }
     ]
   },
@@ -73,7 +71,7 @@ export const constantRoutes = [
 
 /**
  * asyncRoutes
- * the routes that need to be dynamically loaded based on user roles
+ * 需要根据用户角色动态加载的路由
  */
 export const asyncRoutes = [
   {
@@ -83,9 +81,8 @@ export const asyncRoutes = [
     alwaysShow: true, // will always show the root menu
     name: 'Permission',
     meta: {
-      title: '权限页',
+      title: '权限页11',
       icon: 'lock',
-      roles: ['admin', 'editor'] // you can set roles in root nav
     },
     children: [
       {
@@ -93,7 +90,7 @@ export const asyncRoutes = [
         component: () => import('@/views/permission/page'),
         name: 'PagePermission',
         meta: {
-          title: '页面权限',
+          title: '页面权限11',
           roles: ['admin'] // or you can only set roles in sub nav
         }
       },
@@ -103,7 +100,6 @@ export const asyncRoutes = [
         name: 'DirectivePermission',
         meta: {
           title: '指令权限'
-          // if do not set roles, means: this page does not require permission
         }
       },
       {
@@ -112,7 +108,6 @@ export const asyncRoutes = [
         name: 'RolePermission',
         meta: {
           title: '角色权限',
-          roles: ['admin']
         }
       }
     ]
@@ -126,12 +121,12 @@ export const asyncRoutes = [
         path: 'index',
         component: () => import('@/views/icons/index'),
         name: 'Icons',
-        meta: { title: '图标', icon: 'icon', noCache: true }
+        meta: { title: '图标11', icon: 'icon', noCache: true, roles: ['admin'] }
       }
     ]
   },
 
-  /** when your routing map is too long, you can split it into small modules **/
+  /** 当你的路由图太长时，你可以把它分成小模块 **/
   componentsRouter,
   nestedRouter,
 
@@ -201,7 +196,7 @@ export const asyncRoutes = [
 ]
 
 const createRouter = () => new Router({
-  // mode: 'history', // require service support
+  // mode: 'history', // 后端支持可开
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })
