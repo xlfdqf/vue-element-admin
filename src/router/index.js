@@ -78,7 +78,7 @@ export const asyncRoutes = [
     path: '/permission',
     component: Layout,
     redirect: '/permission/page',
-    alwaysShow: true, // will always show the root menu
+    alwaysShow: true, // 总是显示根菜单
     name: 'Permission',
     meta: {
       title: '权限页11',
@@ -91,7 +91,7 @@ export const asyncRoutes = [
         name: 'PagePermission',
         meta: {
           title: '页面权限11',
-          roles: ['admin'] // or you can only set roles in sub nav
+          roles: ['admin'] // 或者只能在子导航 sub nav中设置角色
         }
       },
       {
