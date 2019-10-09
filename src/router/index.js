@@ -79,7 +79,7 @@ export const routerMap = {
 
 /**
  * asyncRoutes
- * 需要根据用户角色动态加载的路由
+ * 需要根据用户角色动态加载的路由(无需配置权限时使用)
  */
 // export const asyncRoutes = [
 //   {
