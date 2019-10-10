@@ -3,7 +3,7 @@ import { deepClone } from '../../src/utils/index.js'
 import { asyncRoutes, constantRoutes } from './routes.js'
 
 const routes = deepClone([...constantRoutes, ...asyncRoutes])
-
+console.log("deepClone:", routes)
 const roles = [
   {
     key: 'admin',
@@ -15,7 +15,42 @@ const roles = [
     key: 'editor',
     name: 'editor',
     description: 'Normal Editor. Can see all pages except permission page',
-    routes: routes.filter(i => i.path !== '/permission')// just a mock：可以看到除权限页以外的所有页面（这里设置是否选中的权限）
+    routes: [{
+      path: '/permission',
+      component: 'layout',
+      redirect: '/permission/page',
+      name: 'Permission',
+      meta: {
+        title: '权限页11',
+        icon: 'lock',
+        roles: ['admin', 'editor']
+      },
+      children: [
+        {
+          path: 'page',
+          component: 'page',
+          name: 'PagePermission',
+          meta: {
+            title: '页面权限12',
+          }
+        }, {
+          path: 'directive',
+          component: 'directive',
+          name: 'DirectivePermission',
+          meta: {
+            title: '指令权限'
+          }
+        }, {
+          path: 'role',
+          component: 'role',
+          name: 'RolePermission',
+          meta: {
+            title: '角色权限',
+            roles: ['admin']
+          }
+        }
+      ]
+    }]
   },
   {
     key: 'visitor',
