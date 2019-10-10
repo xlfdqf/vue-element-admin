@@ -95,24 +95,29 @@ export default {
   computed: {
     routesData() {
       return this.routes;
+    },
+    permission_routes() {
+      return this.$store.getters.permission_routes; //store中获取全部权限
     }
   },
   created() {
     // Mock:从服务器获取所有路由和角色列表
     this.getRoutes();
     this.getRoles();
+
+    console.log("permission_routes:", this.permission_routes);
   },
   methods: {
     async getRoutes() {
-      const res = await getRoutes();
-      console.log("所有路由：", res);
-      this.serviceRoutes = res.data;
-      this.routes = this.generateRoutes(res.data);
+      // const res = await getRoutes();
+      // this.serviceRoutes = res.data;
+      // this.routes = this.generateRoutes(res.data);
+      this.routes = this.generateRoutes(this.permission_routes);
+      console.log("所有树数据：", this.routes);
     },
     async getRoles() {
       const res = await getRoles();
       this.rolesList = res.data;
-      console.log("表格数据--权限路由：", res.data);
     },
 
     //重新调整路由结构，使其看起来与边栏相同
@@ -120,7 +125,7 @@ export default {
       const res = [];
 
       for (let route of routes) {
-        // 跳过一些路由
+        // 跳过一些路由(hidden则不显示)
         if (route.hidden) {
           continue;
         }
@@ -177,7 +182,7 @@ export default {
       this.role = deepClone(scope.row);
       this.$nextTick(() => {
         const routes = this.generateRoutes(this.role.routes);
-        // console.log("默认选中路由：", this.generateArr(routes));
+        console.log("默认选中路由：", this.generateArr(routes));
         this.$refs.tree.setCheckedNodes(this.generateArr(routes)); //设置目前勾选的节点
         //节点的已设置检查状态不影响其父节点和子节点
         this.checkStrictly = false;

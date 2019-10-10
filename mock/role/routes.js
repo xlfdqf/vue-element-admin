@@ -62,7 +62,7 @@ export const asyncRoutes = [
         component: 'page',
         name: 'PagePermission',
         meta: {
-          title: '页面权限11',
+          title: '页面权限12',
         }
       }, {
         path: 'directive',
